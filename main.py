@@ -32,11 +32,20 @@ def next_card():
     flip_timer = window.after(3000, flip_card)
 
 
+def persian_direct():
+    """show persian compound words on RTL text-direction"""
+    text = words_list[index]['Persian']
+    text_list = text.split(' ')
+    true_text_list = list(reversed(text_list))
+    true_text = ' '.join(true_text_list)
+    return true_text
+
+
 def flip_card():
     """Show translate of Current Eng word"""
     canvas.itemconfig(current_card_bg_image, image=card_bg_img)
     canvas.itemconfig(card_title, text="فارسی", fill="white")
-    canvas.itemconfig(card_word, text=words_list[index]['Persian'], fill="white")
+    canvas.itemconfig(card_word, text=persian_direct(), fill="white")
 
 
 # ---------------------------- window ------------------------------- #
@@ -60,7 +69,6 @@ current_card_bg_image = canvas.create_image(400, 263, image=card_fg_img)
 
 card_bg_img_adr = "images/card_back.png"
 card_bg_img = PhotoImage(file=card_bg_img_adr)
-
 
 card_title = canvas.create_text(400, 150, text="", font=('Ariel', 40, 'italic'))
 card_word = canvas.create_text(400, 263, text="", font=('Ariel', 60, 'normal'))
