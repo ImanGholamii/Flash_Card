@@ -32,7 +32,10 @@ def next_card():
     window.after_cancel(flip_timer)
     canvas.itemconfig(current_card_bg_image, image=card_fg_img)
     canvas.itemconfig(card_title, text=f"English", fill="black")
-    current_word = choice(words_list)  # current word was word_list[index]
+    if len(words_list) != 0:
+        current_word = choice(words_list)  # current word was word_list[index]
+    else:
+        end_script()
     canvas.itemconfig(card_word, text=current_word['English'], fill="black")
     flip_timer = window.after(3000, flip_card)
 
@@ -59,7 +62,7 @@ unknown_fa_words = []
 
 def unknown_word():
     """to catch the unknown words, call next_card and write_learn_file by clicking wrong_btn"""
-    global unknown_en_word, unknown_fa_word
+    global unknown_en_words, unknown_fa_words
     unknown_en_words.append(current_word['English'])
     unknown_fa_words.append(current_word['Persian'])
     write_learn_file()
@@ -84,6 +87,9 @@ def known_words():
     next_card()
 
 
+def end_script():
+    """ends the scripts when words list finished"""
+    window.quit()
 # ---------------------------- window ------------------------------- #
 window = Tk()
 window.title("Flashy")
