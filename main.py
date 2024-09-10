@@ -48,6 +48,27 @@ def flip_card():
     canvas.itemconfig(card_word, text=persian_direct(), fill="white")
 
 
+unknown_en_words = []
+unknown_fa_words = []
+
+
+def unknown_word():
+    global unknown_en_word, unknown_fa_word
+    unknown_en_words.append(words_list[index]['English'])
+    unknown_fa_words.append(words_list[index]['Persian'])
+    write_learn_file()
+    next_card()
+
+
+def write_learn_file():
+    word_dict = {
+        'English': unknown_en_words,
+        'Persian': unknown_fa_words
+    }
+    learn_words = pandas.DataFrame(word_dict)
+    learn_words.to_csv('learn_words.csv', index=False)
+
+
 # ---------------------------- window ------------------------------- #
 window = Tk()
 window.title("Flashy")
@@ -87,7 +108,7 @@ right_btn.grid_configure(row=1, column=1)
 wrong_img_adr = "images/wrong.png"
 wrong_img = PhotoImage(file=wrong_img_adr)
 wrong_btn = Button(image=wrong_img, border=0.5, highlightthickness=0, activebackground=ACTIVE_BG_COLOR,
-                   command=next_card)
+                   command=unknown_word)
 wrong_btn.grid_configure(row=1, column=0)
 
 next_card()  # to start with random data, avoiding from constant value
