@@ -1,3 +1,4 @@
 .idea/
 venv/
-learn_words.csv
+words_to_learn.csv
+wrong_answered_words.csv

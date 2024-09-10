@@ -8,15 +8,15 @@ ACTIVE_BG_COLOR = "#557C56"
 ROWS = 2
 COLUMNS = 2
 # ---------------------------- MAKE CSV DATA ------------------------------- #
-data_file = pandas.read_csv("data/english_words.csv")
+data_file = pandas.read_csv("data/words/english_words.csv")
 data = pandas.DataFrame(data_file)
-data["English"].to_csv("data/english_words.csv", index=False)
-with open("data/fa.txt", "r", encoding="utf-8") as fa_data:
+data["English"].to_csv("data/words/english_words.csv", index=False)
+with open("data/words/fa.txt", "r", encoding="utf-8") as fa_data:
     fa_list = fa_data.readlines()
     data["Persian"] = [word.strip().replace('"', '') for word in fa_list]
-data.to_csv("data/english_words_with_translations.csv", index=False)
+data.to_csv("data/words/english_words_with_translations.csv", index=False)
 # ---------------------------- Functions ------------------------------- #
-words = pandas.read_csv("data/english_words_with_translations.csv")
+words = pandas.read_csv("data/words/english_words_with_translations.csv")
 words_list = words.to_dict(orient="records")
 current_word = {}
 
@@ -67,14 +67,14 @@ def write_learn_file():
         'Persian': unknown_fa_words
     }
     learn_words = pandas.DataFrame(word_dict)
-    learn_words.to_csv('data/results/wrong_answered_words.csv', index=False)
+    learn_words.to_csv('data/wrong_answered_words.csv', index=False)
 
 
 def known_words():
     """to catch the known words and remove from original words list for next trys"""
     words_list.remove(current_word)
     words_to_learn_data_frame = pandas.DataFrame(words_list)
-    words_to_learn_data_frame.to_csv("data/results/words_to_learn.csv", index=False)
+    words_to_learn_data_frame.to_csv("data/words_to_learn.csv", index=False)
     next_card()
 
 
