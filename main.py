@@ -90,6 +90,8 @@ def known_words():
 def end_script():
     """ends the scripts when words list finished"""
     window.quit()
+
+    
 # ---------------------------- window ------------------------------- #
 window = Tk()
 window.title("Flashy")
