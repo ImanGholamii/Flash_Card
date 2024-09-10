@@ -16,8 +16,14 @@ with open("data/words/fa.txt", "r", encoding="utf-8") as fa_data:
     data["Persian"] = [word.strip().replace('"', '') for word in fa_list]
 data.to_csv("data/words/english_words_with_translations.csv", index=False)
 # ---------------------------- Functions ------------------------------- #
-words = pandas.read_csv("data/words/english_words_with_translations.csv")
-words_list = words.to_dict(orient="records")
+try:
+    words = pandas.read_csv("data/words/english_words_with_translations.csv")
+except FileNotFoundError:
+    original_words = pandas.read_csv("data/words/english_words_with_translations.csv")
+    words_list = original_words.to_dict(orient="records")
+else:
+    words_list = words.to_dict(orient="records")
+
 current_word = {}
 
 
@@ -61,7 +67,7 @@ def unknown_word():
 
 
 def write_learn_file():
-    """to write unknown words in a csv file"""
+    """to write current unknown words in a csv file"""
     word_dict = {
         'English': unknown_en_words,
         'Persian': unknown_fa_words
