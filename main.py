@@ -53,6 +53,7 @@ unknown_fa_words = []
 
 
 def unknown_word():
+    """to catch the unknown words, call next_card and write_learn_file by clicking wrong_btn"""
     global unknown_en_word, unknown_fa_word
     unknown_en_words.append(words_list[index]['English'])
     unknown_fa_words.append(words_list[index]['Persian'])
@@ -61,12 +62,18 @@ def unknown_word():
 
 
 def write_learn_file():
+    """to write unknown words in a csv file"""
     word_dict = {
         'English': unknown_en_words,
         'Persian': unknown_fa_words
     }
     learn_words = pandas.DataFrame(word_dict)
     learn_words.to_csv('learn_words.csv', index=False)
+
+
+def known_words():
+    """to catch the known words and remove from original words list for next trys"""
+    pass
 
 
 # ---------------------------- window ------------------------------- #
